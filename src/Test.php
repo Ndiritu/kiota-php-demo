@@ -11,6 +11,7 @@ use Microsoft\Kiota\Http\KiotaClientFactory;
 define("CLIENT_ID", getenv("client_id"));
 define("TENANT_ID", getenv("test_tenantId"));
 define("CLIENT_SECRET", getenv("test_secret"));
+const USER_ID = 'pgichuhi@pgichuhi.onmicrosoft.com';
 
 $tokenRequestContext = new ClientCredentialContext(
     TENANT_ID,
@@ -32,9 +33,11 @@ $requestAdapter = new GuzzleRequestAdapter(
 
 $graphClient = new GraphClient($requestAdapter);
 
-$response = $graphClient->usersById('pgichuhi@pgichuhi.onmicrosoft.com')->messages()->get()->wait();
+$response = $graphClient->usersById(USER_ID)->messages()->get()->wait();
 var_dump($response);
 foreach ($response as $message) {
     echo "From: {$message->getFrom()}";
     echo "Subject: {$message->getSubject()}";
 }
+
+$message = new \Microsoft\Graph\Models\Microsoft\Graph\Message();
