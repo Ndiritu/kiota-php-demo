@@ -1,13 +1,11 @@
 <?php
 
-namespace Microsoft\Graph\Users\Item\InferenceClassification;
+namespace Microsoft\Graph\Users\Item\MailFolders\Item\ChildFolders\Item;
 
 use Exception;
 use Http\Promise\Promise;
 use Http\Promise\RejectedPromise;
-use Microsoft\Graph\Models\Microsoft\Graph\InferenceClassification;
-use Microsoft\Graph\Users\Item\InferenceClassification\Overrides\Item\InferenceClassificationOverrideItemRequestBuilder;
-use Microsoft\Graph\Users\Item\InferenceClassification\Overrides\OverridesRequestBuilder;
+use Microsoft\Graph\Models\Microsoft\Graph\MailFolder;
 use Microsoft\Kiota\Abstractions\HttpMethod;
 use Microsoft\Kiota\Abstractions\RequestAdapter;
 use Microsoft\Kiota\Abstractions\RequestInformation;
@@ -15,12 +13,8 @@ use Microsoft\Kiota\Abstractions\RequestOption;
 use Microsoft\Kiota\Abstractions\ResponseHandler;
 use Microsoft\Kiota\Abstractions\Serialization\Parsable;
 
-class InferenceClassificationRequestBuilder 
+class MailFolderItemRequestBuilder 
 {
-    public function overrides(): OverridesRequestBuilder {
-        return new OverridesRequestBuilder($this->pathParameters, $this->requestAdapter);
-    }
-    
     /** @var array<string, mixed> $pathParameters Path parameters for the request */
     private array $pathParameters;
     
@@ -31,18 +25,18 @@ class InferenceClassificationRequestBuilder
     private string $urlTemplate;
     
     /**
-     * Instantiates a new InferenceClassificationRequestBuilder and sets the default values.
+     * Instantiates a new MailFolderItemRequestBuilder and sets the default values.
      * @param array<string, mixed> $pathParameters Path parameters for the request
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/inferenceClassification{?select}';
+        $this->urlTemplate = '{+baseurl}/users/{user_id}/mailFolders/{mailFolder_id}/childFolders/{mailFolder_id1}{?select,expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
 
     /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
+     * The collection of child folders in the mailFolder.
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
      * @return RequestInformation
@@ -62,7 +56,7 @@ class InferenceClassificationRequestBuilder
     }
 
     /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
+     * The collection of child folders in the mailFolder.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -86,13 +80,13 @@ class InferenceClassificationRequestBuilder
     }
 
     /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
-     * @param InferenceClassification $body 
+     * The collection of child folders in the mailFolder.
+     * @param MailFolder $body 
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
      * @return RequestInformation
     */
-    public function createPatchRequestInformation(InferenceClassification $body, ?array $headers = null, ?array $options = null): RequestInformation {
+    public function createPatchRequestInformation(MailFolder $body, ?array $headers = null, ?array $options = null): RequestInformation {
         $requestInfo = new RequestInformation();
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
@@ -108,7 +102,7 @@ class InferenceClassificationRequestBuilder
     }
 
     /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
+     * The collection of child folders in the mailFolder.
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
      * @param ResponseHandler|null $responseHandler Response handler to use in place of the default response handling provided by the core service
@@ -124,7 +118,7 @@ class InferenceClassificationRequestBuilder
     }
 
     /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
+     * The collection of child folders in the mailFolder.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -134,32 +128,21 @@ class InferenceClassificationRequestBuilder
     public function get(?array $queryParameters = null, ?array $headers = null, ?array $options = null, ?ResponseHandler $responseHandler = null): Promise {
         $requestInfo = $this->createGetRequestInformation($queryParameters, $headers, $options);
         try {
-            return $this->requestAdapter->sendAsync($requestInfo, InferenceClassification::class, $responseHandler);
+            return $this->requestAdapter->sendAsync($requestInfo, MailFolder::class, $responseHandler);
         } catch(Exception $ex) {
             return new RejectedPromise($ex);
         }
     }
 
     /**
-     * Gets an item from the Microsoft\Graph.users.item.inferenceClassification.overrides.item collection
-     * @param string $id Unique identifier of the item
-     * @return InferenceClassificationOverrideItemRequestBuilder
-    */
-    public function overridesById(string $id): InferenceClassificationOverrideItemRequestBuilder {
-        $urlTplParams = $this->pathParameters;
-        $urlTplParams['inferenceClassificationOverride_id'] = $id;
-        return new InferenceClassificationOverrideItemRequestBuilder($urlTplParams, $this->requestAdapter);
-    }
-
-    /**
-     * Relevance classification of the user's messages based on explicit designations which override inferred relevance or importance.
-     * @param InferenceClassification $body 
+     * The collection of child folders in the mailFolder.
+     * @param MailFolder $body 
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
      * @param ResponseHandler|null $responseHandler Response handler to use in place of the default response handling provided by the core service
      * @return Promise
     */
-    public function patch(InferenceClassification $body, ?array $headers = null, ?array $options = null, ?ResponseHandler $responseHandler = null): Promise {
+    public function patch(MailFolder $body, ?array $headers = null, ?array $options = null, ?ResponseHandler $responseHandler = null): Promise {
         $requestInfo = $this->createPatchRequestInformation($body, $headers, $options);
         try {
             return $this->requestAdapter->sendAsync($requestInfo, '', $responseHandler);

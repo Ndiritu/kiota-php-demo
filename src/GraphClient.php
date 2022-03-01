@@ -2,7 +2,7 @@
 
 namespace Microsoft\Graph;
 
-use Microsoft\Graph\Users\Item\UserRequestBuilder;
+use Microsoft\Graph\Users\Item\UserItemRequestBuilder;
 use Microsoft\Graph\Users\UsersRequestBuilder;
 use Microsoft\Kiota\Abstractions\ApiClientBuilder;
 use Microsoft\Kiota\Abstractions\RequestAdapter;
@@ -38,12 +38,12 @@ class GraphClient
     /**
      * Gets an item from the Microsoft\Graph.users.item collection
      * @param string $id Unique identifier of the item
-     * @return UserRequestBuilder
+     * @return UserItemRequestBuilder
     */
-    public function usersById(string $id): UserRequestBuilder {
+    public function usersById(string $id): UserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
         $urlTplParams['user_id'] = $id;
-        return new UserRequestBuilder($urlTplParams, $this->requestAdapter);
+        return new UserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
 }

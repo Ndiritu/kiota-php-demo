@@ -1,4 +1,4 @@
 [submodule "kiota"]
 	path = kiota
 	url = https://github.com/microsoft/kiota
-	branch = philip/generation
+	branch = fix/php/generation
