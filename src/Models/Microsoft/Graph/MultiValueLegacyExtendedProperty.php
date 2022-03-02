@@ -42,7 +42,7 @@ class MultiValueLegacyExtendedProperty extends Entity
     */
     public function serialize(SerializationWriter $writer): void {
         parent::serialize($writer);
-        $writer->writeCollectionOfNonParsableObjectValues('value', $this->value);
+        $writer->writeCollectionOfPrimitiveValues('value', $this->value);
     }
 
     /**

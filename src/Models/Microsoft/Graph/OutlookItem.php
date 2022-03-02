@@ -79,7 +79,7 @@ class OutlookItem extends Entity
     */
     public function serialize(SerializationWriter $writer): void {
         parent::serialize($writer);
-        $writer->writeCollectionOfNonParsableObjectValues('categories', $this->categories);
+        $writer->writeCollectionOfPrimitiveValues('categories', $this->categories);
         $writer->writeStringValue('changeKey', $this->changeKey);
         $writer->writeDateTimeValue('createdDateTime', $this->createdDateTime);
         $writer->writeDateTimeValue('lastModifiedDateTime', $this->lastModifiedDateTime);

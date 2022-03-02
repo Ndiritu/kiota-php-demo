@@ -400,12 +400,12 @@ class MessageRulePredicates implements Parsable
      * @param SerializationWriter $writer Serialization writer to use to serialize this model
     */
     public function serialize(SerializationWriter $writer): void {
-        $writer->writeCollectionOfNonParsableObjectValues('bodyContains', $this->bodyContains);
-        $writer->writeCollectionOfNonParsableObjectValues('bodyOrSubjectContains', $this->bodyOrSubjectContains);
-        $writer->writeCollectionOfNonParsableObjectValues('categories', $this->categories);
+        $writer->writeCollectionOfPrimitiveValues('bodyContains', $this->bodyContains);
+        $writer->writeCollectionOfPrimitiveValues('bodyOrSubjectContains', $this->bodyOrSubjectContains);
+        $writer->writeCollectionOfPrimitiveValues('categories', $this->categories);
         $writer->writeCollectionOfObjectValues('fromAddresses', $this->fromAddresses);
         $writer->writeBooleanValue('hasAttachments', $this->hasAttachments);
-        $writer->writeCollectionOfNonParsableObjectValues('headerContains', $this->headerContains);
+        $writer->writeCollectionOfPrimitiveValues('headerContains', $this->headerContains);
         $writer->writeEnumValue('importance', $this->importance);
         $writer->writeBooleanValue('isApprovalRequest', $this->isApprovalRequest);
         $writer->writeBooleanValue('isAutomaticForward', $this->isAutomaticForward);
@@ -420,15 +420,15 @@ class MessageRulePredicates implements Parsable
         $writer->writeBooleanValue('isVoicemail', $this->isVoicemail);
         $writer->writeEnumValue('messageActionFlag', $this->messageActionFlag);
         $writer->writeBooleanValue('notSentToMe', $this->notSentToMe);
-        $writer->writeCollectionOfNonParsableObjectValues('recipientContains', $this->recipientContains);
-        $writer->writeCollectionOfNonParsableObjectValues('senderContains', $this->senderContains);
+        $writer->writeCollectionOfPrimitiveValues('recipientContains', $this->recipientContains);
+        $writer->writeCollectionOfPrimitiveValues('senderContains', $this->senderContains);
         $writer->writeEnumValue('sensitivity', $this->sensitivity);
         $writer->writeBooleanValue('sentCcMe', $this->sentCcMe);
         $writer->writeBooleanValue('sentOnlyToMe', $this->sentOnlyToMe);
         $writer->writeCollectionOfObjectValues('sentToAddresses', $this->sentToAddresses);
         $writer->writeBooleanValue('sentToMe', $this->sentToMe);
         $writer->writeBooleanValue('sentToOrCcMe', $this->sentToOrCcMe);
-        $writer->writeCollectionOfNonParsableObjectValues('subjectContains', $this->subjectContains);
+        $writer->writeCollectionOfPrimitiveValues('subjectContains', $this->subjectContains);
         $writer->writeObjectValue('withinSizeRange', $this->withinSizeRange);
         $writer->writeAdditionalData($this->additionalData);
     }
