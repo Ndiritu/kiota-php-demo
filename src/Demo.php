@@ -23,16 +23,10 @@ $tokenRequestContext = new ClientCredentialContext(
     'Exh7Q~NLoJjNSt_UZ6Z..cePwf4tSwsXu-RPj'
 );
 
-$guzzleClient = KiotaClientFactory::createWithConfig([
-    'proxy' => 'http://localhost:8888',
-    'verify' => false
-]);
+
 
 $requestAdapter = new GuzzleRequestAdapter(
     new PhpLeagueAuthenticationProvider($tokenRequestContext, ['https://graph.microsoft.com/.default']),
-    null,
-    null,
-    $guzzleClient
 );
 
 $graphClient = new GraphClient($requestAdapter);
