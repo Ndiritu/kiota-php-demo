@@ -1,12 +1,14 @@
 <?php
 
 require_once "../vendor/autoload.php";
+require_once "./DemoUtils.php";
 
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Kiota\Http\GuzzleRequestAdapter;
 use Microsoft\Kiota\Authentication\PhpLeagueAuthenticationProvider;
 use Microsoft\Graph\GraphClient;
 use Microsoft\Kiota\Http\KiotaClientFactory;
+use Microsoft\Graph\Models\Microsoft\Graph\Message;
 
 define("CLIENT_ID", getenv("client_id"));
 define("TENANT_ID", getenv("test_tenantId"));
@@ -33,12 +35,20 @@ $requestAdapter = new GuzzleRequestAdapter(
 
 $graphClient = new GraphClient($requestAdapter);
 
+// GET collection of messages
 $messages = $graphClient->usersById(USER_ID)->messages()->get()->wait();
 foreach ($messages->getValue() as $message) {
-    echo "Id: {$message->getId()}\n";
-    $from = $message->getFrom()->getEmailAddress();
-    echo "From: {$from->getName()} <{$from->getAddress()}>\n";
-    echo "Subject: {$message->getSubject()}\n\n";
+    printMessage($message);
 }
 
-$message = new \Microsoft\Graph\Models\Microsoft\Graph\Message();
+// GET item
+$sampleMessageId = $messages->getValue()[0]->getId();
+$message = $graphClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
+printMessage($message);
+
+// POST
+$message = new Message();
+$message->setSubject("KIOTA DEMO SUBJECT");
+
+$response = $graphClient->usersById(USER_ID)->messages()->post($message);
+printMessage($response);
