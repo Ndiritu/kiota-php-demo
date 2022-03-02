@@ -9,19 +9,19 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class FollowupFlag implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var DateTimeTimeZone|null $completedDateTime  */
-    private ?DateTimeTimeZone $completedDateTime;
+    private ?DateTimeTimeZone $completedDateTime = null;
     
     /** @var DateTimeTimeZone|null $dueDateTime  */
-    private ?DateTimeTimeZone $dueDateTime;
+    private ?DateTimeTimeZone $dueDateTime = null;
     
     /** @var FollowupFlagStatus|null $flagStatus  */
-    private ?FollowupFlagStatus $flagStatus;
+    private ?FollowupFlagStatus $flagStatus = null;
     
     /** @var DateTimeTimeZone|null $startDateTime  */
-    private ?DateTimeTimeZone $startDateTime;
+    private ?DateTimeTimeZone $startDateTime = null;
     
     /**
      * Instantiates a new followupFlag and sets the default values.

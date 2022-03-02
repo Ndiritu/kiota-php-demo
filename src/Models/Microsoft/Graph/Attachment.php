@@ -10,19 +10,19 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class Attachment extends Entity 
 {
     /** @var string|null $contentType The MIME type. */
-    private ?string $contentType;
+    private ?string $contentType = null;
     
     /** @var bool|null $isInline true if the attachment is an inline attachment; otherwise, false. */
-    private ?bool $isInline;
+    private ?bool $isInline = null;
     
     /** @var DateTime|null $lastModifiedDateTime The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z */
-    private ?DateTime $lastModifiedDateTime;
+    private ?DateTime $lastModifiedDateTime = null;
     
     /** @var string|null $name The attachment's file name. */
-    private ?string $name;
+    private ?string $name = null;
     
     /** @var int|null $size The length of the attachment in bytes. */
-    private ?int $size;
+    private ?int $size = null;
     
     /**
      * Instantiates a new attachment and sets the default values.

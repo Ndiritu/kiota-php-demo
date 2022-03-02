@@ -9,10 +9,10 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class InferenceClassificationOverride extends Entity 
 {
     /** @var InferenceClassificationType|null $classifyAs  */
-    private ?InferenceClassificationType $classifyAs;
+    private ?InferenceClassificationType $classifyAs = null;
     
     /** @var EmailAddress|null $senderEmailAddress  */
-    private ?EmailAddress $senderEmailAddress;
+    private ?EmailAddress $senderEmailAddress = null;
     
     /**
      * Instantiates a new inferenceClassificationOverride and sets the default values.

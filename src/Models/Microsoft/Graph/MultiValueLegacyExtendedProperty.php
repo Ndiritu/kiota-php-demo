@@ -9,7 +9,7 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class MultiValueLegacyExtendedProperty extends Entity 
 {
     /** @var array<string>|null $value A collection of property values. */
-    private ?array $value;
+    private ?array $value = null;
     
     /**
      * Instantiates a new multiValueLegacyExtendedProperty and sets the default values.

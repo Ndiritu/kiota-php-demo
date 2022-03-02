@@ -9,10 +9,10 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class Recipient implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var EmailAddress|null $emailAddress  */
-    private ?EmailAddress $emailAddress;
+    private ?EmailAddress $emailAddress = null;
     
     /**
      * Instantiates a new recipient and sets the default values.

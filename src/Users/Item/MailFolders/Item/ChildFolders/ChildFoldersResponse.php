@@ -10,13 +10,13 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class ChildFoldersResponse implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var string|null $nextLink  */
-    private ?string $nextLink;
+    private ?string $nextLink = null;
     
     /** @var array<MailFolder>|null $value  */
-    private ?array $value;
+    private ?array $value = null;
     
     /**
      * Instantiates a new childFoldersResponse and sets the default values.

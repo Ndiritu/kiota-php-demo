@@ -9,37 +9,37 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class MailFolder extends Entity 
 {
     /** @var int|null $childFolderCount The number of immediate child mailFolders in the current mailFolder. */
-    private ?int $childFolderCount;
+    private ?int $childFolderCount = null;
     
     /** @var array<MailFolder>|null $childFolders The collection of child folders in the mailFolder. */
-    private ?array $childFolders;
+    private ?array $childFolders = null;
     
     /** @var string|null $displayName The mailFolder's display name. */
-    private ?string $displayName;
+    private ?string $displayName = null;
     
     /** @var bool|null $isHidden Indicates whether the mailFolder is hidden. This property can be set only when creating the folder. Find more information in Hidden mail folders. */
-    private ?bool $isHidden;
+    private ?bool $isHidden = null;
     
     /** @var array<MessageRule>|null $messageRules The collection of rules that apply to the user's Inbox folder. */
-    private ?array $messageRules;
+    private ?array $messageRules = null;
     
     /** @var array<Message>|null $messages The collection of messages in the mailFolder. */
-    private ?array $messages;
+    private ?array $messages = null;
     
     /** @var array<MultiValueLegacyExtendedProperty>|null $multiValueExtendedProperties The collection of multi-value extended properties defined for the mailFolder. Read-only. Nullable. */
-    private ?array $multiValueExtendedProperties;
+    private ?array $multiValueExtendedProperties = null;
     
     /** @var string|null $parentFolderId The unique identifier for the mailFolder's parent mailFolder. */
-    private ?string $parentFolderId;
+    private ?string $parentFolderId = null;
     
     /** @var array<SingleValueLegacyExtendedProperty>|null $singleValueExtendedProperties The collection of single-value extended properties defined for the mailFolder. Read-only. Nullable. */
-    private ?array $singleValueExtendedProperties;
+    private ?array $singleValueExtendedProperties = null;
     
     /** @var int|null $totalItemCount The number of items in the mailFolder. */
-    private ?int $totalItemCount;
+    private ?int $totalItemCount = null;
     
     /** @var int|null $unreadItemCount The number of items in the mailFolder marked as unread. */
-    private ?int $unreadItemCount;
+    private ?int $unreadItemCount = null;
     
     /**
      * Instantiates a new mailFolder and sets the default values.

@@ -35,20 +35,34 @@ $requestAdapter = new GuzzleRequestAdapter(
 
 $graphClient = new GraphClient($requestAdapter);
 
-// GET collection of messages
-$messages = $graphClient->usersById(USER_ID)->messages()->get()->wait();
-foreach ($messages->getValue() as $message) {
-    printMessage($message);
-}
-
-// GET item
-$sampleMessageId = $messages->getValue()[0]->getId();
-$message = $graphClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
-printMessage($message);
+//// GET collection of messages
+//$messages = $graphClient->usersById(USER_ID)->messages()->get()->wait();
+//foreach ($messages->getValue() as $message) {
+//    printMessage($message);
+//}
+//
+//// GET item
+//$sampleMessageId = $messages->getValue()[0]->getId();
+//$message = $graphClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
+//printMessage($message);
 
 // POST
+$body = new \Microsoft\Graph\Models\Microsoft\Graph\ItemBody();
+$body->setContent("They were awesome");
+
+$recipient = new \Microsoft\Graph\Models\Microsoft\Graph\Recipient();
+$email = new \Microsoft\Graph\Models\Microsoft\Graph\EmailAddress();
+$email->setAddress("Test@contoso.onmicrosoft.com");
+$recipient->setEmailAddress($email);
+$recipients = [
+    $recipient
+];
+
 $message = new Message();
 $message->setSubject("KIOTA DEMO SUBJECT");
+$message->setImportance(new \Microsoft\Graph\Models\Microsoft\Graph\Importance('low'));
+$message->setBody($body);
+$message->setToRecipients($recipients);
 
 $response = $graphClient->usersById(USER_ID)->messages()->post($message);
 printMessage($response);

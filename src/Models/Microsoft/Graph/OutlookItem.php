@@ -10,16 +10,16 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class OutlookItem extends Entity 
 {
     /** @var array<string>|null $categories The categories associated with the item */
-    private ?array $categories;
+    private ?array $categories = null;
     
     /** @var string|null $changeKey Identifies the version of the item. Every time the item is changed, changeKey changes as well. This allows Exchange to apply changes to the correct version of the object. Read-only. */
-    private ?string $changeKey;
+    private ?string $changeKey = null;
     
     /** @var DateTime|null $createdDateTime The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z */
-    private ?DateTime $createdDateTime;
+    private ?DateTime $createdDateTime = null;
     
     /** @var DateTime|null $lastModifiedDateTime The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z */
-    private ?DateTime $lastModifiedDateTime;
+    private ?DateTime $lastModifiedDateTime = null;
     
     /**
      * Instantiates a new outlookItem and sets the default values.

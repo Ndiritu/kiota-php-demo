@@ -22,13 +22,13 @@ class InferenceClassificationRequestBuilder
     }
     
     /** @var array<string, mixed> $pathParameters Path parameters for the request */
-    private array $pathParameters;
+    private array $pathParameters ;
     
     /** @var RequestAdapter $requestAdapter The request adapter to use to execute the requests. */
-    private RequestAdapter $requestAdapter;
+    private RequestAdapter $requestAdapter ;
     
     /** @var string $urlTemplate Url template to use to build the URL for the current request builder */
-    private string $urlTemplate;
+    private string $urlTemplate ;
     
     /**
      * Instantiates a new InferenceClassificationRequestBuilder and sets the default values.

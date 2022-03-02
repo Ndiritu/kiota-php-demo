@@ -9,13 +9,13 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class EmailAddress implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var string|null $address The email address of the person or entity. */
-    private ?string $address;
+    private ?string $address = null;
     
     /** @var string|null $name The display name of the person or entity. */
-    private ?string $name;
+    private ?string $name = null;
     
     /**
      * Instantiates a new emailAddress and sets the default values.

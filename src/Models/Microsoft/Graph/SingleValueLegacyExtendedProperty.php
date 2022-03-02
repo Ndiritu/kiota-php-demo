@@ -9,7 +9,7 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class SingleValueLegacyExtendedProperty extends Entity 
 {
     /** @var string|null $value A property value. */
-    private ?string $value;
+    private ?string $value = null;
     
     /**
      * Instantiates a new singleValueLegacyExtendedProperty and sets the default values.

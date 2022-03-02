@@ -9,28 +9,28 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class MessageRule extends Entity 
 {
     /** @var MessageRuleActions|null $actions  */
-    private ?MessageRuleActions $actions;
+    private ?MessageRuleActions $actions = null;
     
     /** @var MessageRulePredicates|null $conditions  */
-    private ?MessageRulePredicates $conditions;
+    private ?MessageRulePredicates $conditions = null;
     
     /** @var string|null $displayName The display name of the rule. */
-    private ?string $displayName;
+    private ?string $displayName = null;
     
     /** @var MessageRulePredicates|null $exceptions  */
-    private ?MessageRulePredicates $exceptions;
+    private ?MessageRulePredicates $exceptions = null;
     
     /** @var bool|null $hasError Indicates whether the rule is in an error condition. Read-only. */
-    private ?bool $hasError;
+    private ?bool $hasError = null;
     
     /** @var bool|null $isEnabled Indicates whether the rule is enabled to be applied to messages. */
-    private ?bool $isEnabled;
+    private ?bool $isEnabled = null;
     
     /** @var bool|null $isReadOnly Indicates if the rule is read-only and cannot be modified or deleted by the rules REST API. */
-    private ?bool $isReadOnly;
+    private ?bool $isReadOnly = null;
     
     /** @var int|null $sequence Indicates the order in which the rule is executed, among other rules. */
-    private ?int $sequence;
+    private ?int $sequence = null;
     
     /**
      * Instantiates a new messageRule and sets the default values.

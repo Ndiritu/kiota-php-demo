@@ -9,13 +9,13 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class SizeRange implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var int|null $maximumSize The maximum size (in kilobytes) that an incoming message must have in order for a condition or exception to apply. */
-    private ?int $maximumSize;
+    private ?int $maximumSize = null;
     
     /** @var int|null $minimumSize The minimum size (in kilobytes) that an incoming message must have in order for a condition or exception to apply. */
-    private ?int $minimumSize;
+    private ?int $minimumSize = null;
     
     /**
      * Instantiates a new sizeRange and sets the default values.

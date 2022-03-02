@@ -9,97 +9,97 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class MessageRulePredicates implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var array<string>|null $bodyContains Represents the strings that should appear in the body of an incoming message in order for the condition or exception to apply. */
-    private ?array $bodyContains;
+    private ?array $bodyContains = null;
     
     /** @var array<string>|null $bodyOrSubjectContains Represents the strings that should appear in the body or subject of an incoming message in order for the condition or exception to apply. */
-    private ?array $bodyOrSubjectContains;
+    private ?array $bodyOrSubjectContains = null;
     
     /** @var array<string>|null $categories Represents the categories that an incoming message should be labeled with in order for the condition or exception to apply. */
-    private ?array $categories;
+    private ?array $categories = null;
     
     /** @var array<Recipient>|null $fromAddresses Represents the specific sender email addresses of an incoming message in order for the condition or exception to apply. */
-    private ?array $fromAddresses;
+    private ?array $fromAddresses = null;
     
     /** @var bool|null $hasAttachments Indicates whether an incoming message must have attachments in order for the condition or exception to apply. */
-    private ?bool $hasAttachments;
+    private ?bool $hasAttachments = null;
     
     /** @var array<string>|null $headerContains Represents the strings that appear in the headers of an incoming message in order for the condition or exception to apply. */
-    private ?array $headerContains;
+    private ?array $headerContains = null;
     
     /** @var Importance|null $importance  */
-    private ?Importance $importance;
+    private ?Importance $importance = null;
     
     /** @var bool|null $isApprovalRequest Indicates whether an incoming message must be an approval request in order for the condition or exception to apply. */
-    private ?bool $isApprovalRequest;
+    private ?bool $isApprovalRequest = null;
     
     /** @var bool|null $isAutomaticForward Indicates whether an incoming message must be automatically forwarded in order for the condition or exception to apply. */
-    private ?bool $isAutomaticForward;
+    private ?bool $isAutomaticForward = null;
     
     /** @var bool|null $isAutomaticReply Indicates whether an incoming message must be an auto reply in order for the condition or exception to apply. */
-    private ?bool $isAutomaticReply;
+    private ?bool $isAutomaticReply = null;
     
     /** @var bool|null $isEncrypted Indicates whether an incoming message must be encrypted in order for the condition or exception to apply. */
-    private ?bool $isEncrypted;
+    private ?bool $isEncrypted = null;
     
     /** @var bool|null $isMeetingRequest Indicates whether an incoming message must be a meeting request in order for the condition or exception to apply. */
-    private ?bool $isMeetingRequest;
+    private ?bool $isMeetingRequest = null;
     
     /** @var bool|null $isMeetingResponse Indicates whether an incoming message must be a meeting response in order for the condition or exception to apply. */
-    private ?bool $isMeetingResponse;
+    private ?bool $isMeetingResponse = null;
     
     /** @var bool|null $isNonDeliveryReport Indicates whether an incoming message must be a non-delivery report in order for the condition or exception to apply. */
-    private ?bool $isNonDeliveryReport;
+    private ?bool $isNonDeliveryReport = null;
     
     /** @var bool|null $isPermissionControlled Indicates whether an incoming message must be permission controlled (RMS-protected) in order for the condition or exception to apply. */
-    private ?bool $isPermissionControlled;
+    private ?bool $isPermissionControlled = null;
     
     /** @var bool|null $isReadReceipt Indicates whether an incoming message must be a read receipt in order for the condition or exception to apply. */
-    private ?bool $isReadReceipt;
+    private ?bool $isReadReceipt = null;
     
     /** @var bool|null $isSigned Indicates whether an incoming message must be S/MIME-signed in order for the condition or exception to apply. */
-    private ?bool $isSigned;
+    private ?bool $isSigned = null;
     
     /** @var bool|null $isVoicemail Indicates whether an incoming message must be a voice mail in order for the condition or exception to apply. */
-    private ?bool $isVoicemail;
+    private ?bool $isVoicemail = null;
     
     /** @var MessageActionFlag|null $messageActionFlag  */
-    private ?MessageActionFlag $messageActionFlag;
+    private ?MessageActionFlag $messageActionFlag = null;
     
     /** @var bool|null $notSentToMe Indicates whether the owner of the mailbox must not be a recipient of an incoming message in order for the condition or exception to apply. */
-    private ?bool $notSentToMe;
+    private ?bool $notSentToMe = null;
     
     /** @var array<string>|null $recipientContains Represents the strings that appear in either the toRecipients or ccRecipients properties of an incoming message in order for the condition or exception to apply. */
-    private ?array $recipientContains;
+    private ?array $recipientContains = null;
     
     /** @var array<string>|null $senderContains Represents the strings that appear in the from property of an incoming message in order for the condition or exception to apply. */
-    private ?array $senderContains;
+    private ?array $senderContains = null;
     
     /** @var Sensitivity|null $sensitivity  */
-    private ?Sensitivity $sensitivity;
+    private ?Sensitivity $sensitivity = null;
     
     /** @var bool|null $sentCcMe Indicates whether the owner of the mailbox must be in the ccRecipients property of an incoming message in order for the condition or exception to apply. */
-    private ?bool $sentCcMe;
+    private ?bool $sentCcMe = null;
     
     /** @var bool|null $sentOnlyToMe Indicates whether the owner of the mailbox must be the only recipient in an incoming message in order for the condition or exception to apply. */
-    private ?bool $sentOnlyToMe;
+    private ?bool $sentOnlyToMe = null;
     
     /** @var array<Recipient>|null $sentToAddresses Represents the email addresses that an incoming message must have been sent to in order for the condition or exception to apply. */
-    private ?array $sentToAddresses;
+    private ?array $sentToAddresses = null;
     
     /** @var bool|null $sentToMe Indicates whether the owner of the mailbox must be in the toRecipients property of an incoming message in order for the condition or exception to apply. */
-    private ?bool $sentToMe;
+    private ?bool $sentToMe = null;
     
     /** @var bool|null $sentToOrCcMe Indicates whether the owner of the mailbox must be in either a toRecipients or ccRecipients property of an incoming message in order for the condition or exception to apply. */
-    private ?bool $sentToOrCcMe;
+    private ?bool $sentToOrCcMe = null;
     
     /** @var array<string>|null $subjectContains Represents the strings that appear in the subject of an incoming message in order for the condition or exception to apply. */
-    private ?array $subjectContains;
+    private ?array $subjectContains = null;
     
     /** @var SizeRange|null $withinSizeRange  */
-    private ?SizeRange $withinSizeRange;
+    private ?SizeRange $withinSizeRange = null;
     
     /**
      * Instantiates a new messageRulePredicates and sets the default values.

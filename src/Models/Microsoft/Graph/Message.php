@@ -11,94 +11,94 @@ use Psr\Http\Message\StreamInterface;
 class Message extends OutlookItem 
 {
     /** @var array<Attachment>|null $attachments The fileAttachment and itemAttachment attachments for the message. */
-    private ?array $attachments;
+    private ?array $attachments = null;
     
     /** @var array<Recipient>|null $bccRecipients The Bcc: recipients for the message. */
-    private ?array $bccRecipients;
+    private ?array $bccRecipients = null;
     
     /** @var ItemBody|null $body  */
-    private ?ItemBody $body;
+    private ?ItemBody $body = null;
     
     /** @var string|null $bodyPreview The first 255 characters of the message body. It is in text format. */
-    private ?string $bodyPreview;
+    private ?string $bodyPreview = null;
     
     /** @var array<Recipient>|null $ccRecipients The Cc: recipients for the message. */
-    private ?array $ccRecipients;
+    private ?array $ccRecipients = null;
     
     /** @var string|null $conversationId The ID of the conversation the email belongs to. */
-    private ?string $conversationId;
+    private ?string $conversationId = null;
     
     /** @var StreamInterface|null $conversationIndex Indicates the position of the message within the conversation. */
-    private ?StreamInterface $conversationIndex;
+    private ?StreamInterface $conversationIndex = null;
     
     /** @var array<Extension>|null $extensions The collection of open extensions defined for the message. Nullable. */
-    private ?array $extensions;
+    private ?array $extensions = null;
     
     /** @var FollowupFlag|null $flag  */
-    private ?FollowupFlag $flag;
+    private ?FollowupFlag $flag = null;
     
     /** @var Recipient|null $from  */
-    private ?Recipient $from;
+    private ?Recipient $from = null;
     
     /** @var bool|null $hasAttachments Indicates whether the message has attachments. This property doesn't include inline attachments, so if a message contains only inline attachments, this property is false. To verify the existence of inline attachments, parse the body property to look for a src attribute, such as <IMG src='cid:image001.jpg@01D26CD8.6C05F070'>. */
-    private ?bool $hasAttachments;
+    private ?bool $hasAttachments = null;
     
     /** @var Importance|null $importance  */
-    private ?Importance $importance;
+    private ?Importance $importance = null;
     
     /** @var InferenceClassificationType|null $inferenceClassification  */
-    private ?InferenceClassificationType $inferenceClassification;
+    private ?InferenceClassificationType $inferenceClassification = null;
     
     /** @var array<InternetMessageHeader>|null $internetMessageHeaders  */
-    private ?array $internetMessageHeaders;
+    private ?array $internetMessageHeaders = null;
     
     /** @var string|null $internetMessageId  */
-    private ?string $internetMessageId;
+    private ?string $internetMessageId = null;
     
     /** @var bool|null $isDeliveryReceiptRequested  */
-    private ?bool $isDeliveryReceiptRequested;
+    private ?bool $isDeliveryReceiptRequested = null;
     
     /** @var bool|null $isDraft  */
-    private ?bool $isDraft;
+    private ?bool $isDraft = null;
     
     /** @var bool|null $isRead  */
-    private ?bool $isRead;
+    private ?bool $isRead = null;
     
     /** @var bool|null $isReadReceiptRequested  */
-    private ?bool $isReadReceiptRequested;
+    private ?bool $isReadReceiptRequested = null;
     
     /** @var array<MultiValueLegacyExtendedProperty>|null $multiValueExtendedProperties The collection of multi-value extended properties defined for the message. Nullable. */
-    private ?array $multiValueExtendedProperties;
+    private ?array $multiValueExtendedProperties = null;
     
     /** @var string|null $parentFolderId  */
-    private ?string $parentFolderId;
+    private ?string $parentFolderId = null;
     
     /** @var DateTime|null $receivedDateTime  */
-    private ?DateTime $receivedDateTime;
+    private ?DateTime $receivedDateTime = null;
     
     /** @var array<Recipient>|null $replyTo  */
-    private ?array $replyTo;
+    private ?array $replyTo = null;
     
     /** @var Recipient|null $sender  */
-    private ?Recipient $sender;
+    private ?Recipient $sender = null;
     
     /** @var DateTime|null $sentDateTime  */
-    private ?DateTime $sentDateTime;
+    private ?DateTime $sentDateTime = null;
     
     /** @var array<SingleValueLegacyExtendedProperty>|null $singleValueExtendedProperties The collection of single-value extended properties defined for the message. Nullable. */
-    private ?array $singleValueExtendedProperties;
+    private ?array $singleValueExtendedProperties = null;
     
     /** @var string|null $subject  */
-    private ?string $subject;
+    private ?string $subject = null;
     
     /** @var array<Recipient>|null $toRecipients  */
-    private ?array $toRecipients;
+    private ?array $toRecipients = null;
     
     /** @var ItemBody|null $uniqueBody  */
-    private ?ItemBody $uniqueBody;
+    private ?ItemBody $uniqueBody = null;
     
     /** @var string|null $webLink  */
-    private ?string $webLink;
+    private ?string $webLink = null;
     
     /**
      * Instantiates a new message and sets the default values.

@@ -9,40 +9,40 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class MessageRuleActions implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var array<string>|null $assignCategories A list of categories to be assigned to a message. */
-    private ?array $assignCategories;
+    private ?array $assignCategories = null;
     
     /** @var string|null $copyToFolder The ID of a folder that a message is to be copied to. */
-    private ?string $copyToFolder;
+    private ?string $copyToFolder = null;
     
     /** @var bool|null $delete Indicates whether a message should be moved to the Deleted Items folder. */
-    private ?bool $delete;
+    private ?bool $delete = null;
     
     /** @var array<Recipient>|null $forwardAsAttachmentTo The email addresses of the recipients to which a message should be forwarded as an attachment. */
-    private ?array $forwardAsAttachmentTo;
+    private ?array $forwardAsAttachmentTo = null;
     
     /** @var array<Recipient>|null $forwardTo The email addresses of the recipients to which a message should be forwarded. */
-    private ?array $forwardTo;
+    private ?array $forwardTo = null;
     
     /** @var bool|null $markAsRead Indicates whether a message should be marked as read. */
-    private ?bool $markAsRead;
+    private ?bool $markAsRead = null;
     
     /** @var Importance|null $markImportance  */
-    private ?Importance $markImportance;
+    private ?Importance $markImportance = null;
     
     /** @var string|null $moveToFolder The ID of the folder that a message will be moved to. */
-    private ?string $moveToFolder;
+    private ?string $moveToFolder = null;
     
     /** @var bool|null $permanentDelete Indicates whether a message should be permanently deleted and not saved to the Deleted Items folder. */
-    private ?bool $permanentDelete;
+    private ?bool $permanentDelete = null;
     
     /** @var array<Recipient>|null $redirectTo The email addresses to which a message should be redirected. */
-    private ?array $redirectTo;
+    private ?array $redirectTo = null;
     
     /** @var bool|null $stopProcessingRules Indicates whether subsequent rules should be evaluated. */
-    private ?bool $stopProcessingRules;
+    private ?bool $stopProcessingRules = null;
     
     /**
      * Instantiates a new messageRuleActions and sets the default values.

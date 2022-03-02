@@ -9,10 +9,10 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class Entity implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var string|null $id Read-only. */
-    private ?string $id;
+    private ?string $id = null;
     
     /**
      * Instantiates a new entity and sets the default values.

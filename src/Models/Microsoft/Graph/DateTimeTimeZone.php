@@ -9,13 +9,13 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class DateTimeTimeZone implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var string|null $dateTime A single point of time in a combined date and time representation ({date}T{time}; for example, 2017-08-29T04:00:00.0000000). */
-    private ?string $dateTime;
+    private ?string $dateTime = null;
     
     /** @var string|null $timeZone Represents a time zone, for example, 'Pacific Standard Time'. See below for more possible values. */
-    private ?string $timeZone;
+    private ?string $timeZone = null;
     
     /**
      * Instantiates a new dateTimeTimeZone and sets the default values.

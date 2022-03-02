@@ -9,13 +9,13 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 class InternetMessageHeader implements Parsable 
 {
     /** @var array<string, mixed> $AdditionalData Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well. */
-    private array $additionalData;
+    private array $additionalData ;
     
     /** @var string|null $name Represents the key in a key-value pair. */
-    private ?string $name;
+    private ?string $name = null;
     
     /** @var string|null $value The value in a key-value pair. */
-    private ?string $value;
+    private ?string $value = null;
     
     /**
      * Instantiates a new internetMessageHeader and sets the default values.

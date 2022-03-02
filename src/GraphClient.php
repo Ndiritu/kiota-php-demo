@@ -10,13 +10,13 @@ use Microsoft\Kiota\Abstractions\RequestAdapter;
 class GraphClient 
 {
     /** @var array<string, mixed> $pathParameters Path parameters for the request */
-    private array $pathParameters;
+    private array $pathParameters ;
     
     /** @var RequestAdapter $requestAdapter The request adapter to use to execute the requests. */
-    private RequestAdapter $requestAdapter;
+    private RequestAdapter $requestAdapter ;
     
     /** @var string $urlTemplate Url template to use to build the URL for the current request builder */
-    private string $urlTemplate;
+    private string $urlTemplate ;
     
     public function users(): UsersRequestBuilder {
         return new UsersRequestBuilder($this->pathParameters, $this->requestAdapter);
