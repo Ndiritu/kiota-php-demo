@@ -23,8 +23,6 @@ $tokenRequestContext = new ClientCredentialContext(
     'Exh7Q~NLoJjNSt_UZ6Z..cePwf4tSwsXu-RPj'
 );
 
-
-
 $requestAdapter = new GuzzleRequestAdapter(
     new PhpLeagueAuthenticationProvider($tokenRequestContext, ['https://graph.microsoft.com/.default']),
 );
