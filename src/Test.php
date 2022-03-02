@@ -33,11 +33,12 @@ $requestAdapter = new GuzzleRequestAdapter(
 
 $graphClient = new GraphClient($requestAdapter);
 
-$response = $graphClient->usersById(USER_ID)->messages()->get()->wait();
-var_dump($response);
-foreach ($response as $message) {
-    echo "From: {$message->getFrom()}";
-    echo "Subject: {$message->getSubject()}";
+$messages = $graphClient->usersById(USER_ID)->messages()->get()->wait();
+foreach ($messages->getValue() as $message) {
+    echo "Id: {$message->getId()}\n";
+    $from = $message->getFrom()->getEmailAddress();
+    echo "From: {$from->getName()} <{$from->getAddress()}>\n";
+    echo "Subject: {$message->getSubject()}\n\n";
 }
 
 $message = new \Microsoft\Graph\Models\Microsoft\Graph\Message();

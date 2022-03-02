@@ -359,7 +359,7 @@ class Message extends OutlookItem
             'bodyPreview' => function (self $o, ParseNode $n) { $o->setBodyPreview($n->getStringValue()); },
             'ccRecipients' => function (self $o, ParseNode $n) { $o->setCcRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
             'conversationId' => function (self $o, ParseNode $n) { $o->setConversationId($n->getStringValue()); },
-            'conversationIndex' => function (self $o, ParseNode $n) { $o->setConversationIndex($n->getObjectValue(StreamInterface::class)); },
+            'conversationIndex' => function (self $o, ParseNode $n) { $o->setConversationIndex($n->getStreamInterfaceValue()); },
             'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
             'flag' => function (self $o, ParseNode $n) { $o->setFlag($n->getObjectValue(FollowupFlag::class)); },
             'from' => function (self $o, ParseNode $n) { $o->setFrom($n->getObjectValue(Recipient::class)); },
