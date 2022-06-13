@@ -46,32 +46,50 @@ $graphClient = new GraphServiceClient($requestAdapter);
 // GET collection of messages
 $messages = $graphClient->usersById(USER_ID)->messages()->get()->wait();
 echo "Fetched ".sizeof($messages->getValue())." messages\n\n";
-foreach ($messages->getValue() as $message) {
-    printMessage($message);
-}
+// foreach ($messages->getValue() as $message) {
+//     printMessage($message);
+// }
 
 // GET item
 $sampleMessageId = $messages->getValue()[0]->getId();
+echo "Sample Message ID: {$sampleMessageId}";
 $message = $graphClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
 echo "\n\n********************** GET ITEM **********************************\n\n";
-printMessage($message);
+var_dump($message);
+// printMessage($message);
 
 // POST
-$body = new ItemBody();
-$body->setContent("They were awesome");
-$body->setContentType(new BodyType(BodyType::TEXT));
+// $body = new ItemBody();
+// $body->setContent("They were awesome");
+// $body->setContentType(new BodyType(BodyType::TEXT));
 
-$email = new EmailAddress();
-$email->setAddress("Test@contoso.onmicrosoft.com");
-$recipient = new Recipient();
-$recipient->setEmailAddress($email);
+// $email = new EmailAddress();
+// $email->setAddress("Test@contoso.onmicrosoft.com");
+// $recipient = new Recipient();
+// $recipient->setEmailAddress($email);
 
-$message = new Message();
-$message->setSubject("KIOTA DEMO SUBJECT");
-$message->setImportance(new Importance(Importance::LOW));
-$message->setBody($body);
-$message->setToRecipients([$recipient]);
+// $message = new Message();
+// $message->setSubject("KIOTA DEMO SUBJECT");
+// $message->setImportance(new Importance(Importance::LOW));
+// $message->setBody($body);
+// $message->setToRecipients([$recipient]);
 
-$response = $graphClient->usersById(USER_ID)->messages()->post($message)->wait();
-echo "\n\n************************** POST ITEM *****************************************\n\n";
-printMessage($response);
+// $response = $graphClient->usersById(USER_ID)->messages()->post($message)->wait();
+// echo "\n\n************************** POST ITEM *****************************************\n\n";
+// printMessage($response);
+
+// PUT
+
+
+// PATCH
+$updatedMsg = new Message();
+$updatedMsg->setSubject("Updated Subject!");
+$updatedMsg = $graphClient->usersById(USER_ID)->messagesById($sampleMessageId)->patch($updatedMsg)->wait();
+echo "\n\n********************* PATCH ITEM ****************************\n\n";
+var_dump($updatedMsg);
+
+// DELETE
+
+// WITH QUERY PARAMETERS
+
+// WITH HEADERS
