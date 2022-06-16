@@ -74,7 +74,8 @@
         "microsoft/kiota-http-guzzle": "@dev",
         "microsoft/kiota-serialization-json": "@dev",
         "microsoft/kiota-serialization-text": "@dev",
-        "microsoft/kiota-abstractions": "@dev"
+        "microsoft/kiota-abstractions": "@dev",
+        "monolog/monolog": "^2.7.0"
 
     },
     "require-dev": {
