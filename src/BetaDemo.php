@@ -6,24 +6,21 @@ use Exception;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Utils;
 use Http\Promise\Promise;
-use Microsoft\Graph\Generated\Drives\Item\Items\Item\CreateUploadSession\CreateUploadSessionPostRequestBody;
-use Microsoft\Graph\Generated\Models\BodyType;
-use Microsoft\Graph\Generated\Models\DriveItemUploadableProperties;
-use Microsoft\Graph\Generated\Models\EmailAddress;
-use Microsoft\Graph\Generated\Models\Importance;
-use Microsoft\Graph\Generated\Models\ItemBody;
-use Microsoft\Graph\GraphRequestAdapter;
-use Microsoft\Graph\GraphServiceClient;
-use Microsoft\Graph\Generated\Models\Message;
-use Microsoft\Graph\Generated\Models\MessageCollectionResponse;
-use Microsoft\Graph\Generated\Models\Recipient;
-use Microsoft\Graph\Generated\Users\Count\CountRequestBuilderGetRequestConfiguration;
-use Microsoft\Graph\Generated\Users\Item\Messages\MessagesRequestBuilderGetQueryParameters;
-use Microsoft\Graph\Generated\Users\Item\Messages\MessagesRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Beta\Generated\Models\BodyType;
+use Microsoft\Graph\Beta\Generated\Models\EmailAddress;
+use Microsoft\Graph\Beta\Generated\Models\Importance;
+use Microsoft\Graph\Beta\Generated\Models\ItemBody;
+use Microsoft\Graph\Beta\GraphRequestAdapter;
+use Microsoft\Graph\Beta\GraphServiceClient;
+use Microsoft\Graph\Beta\Generated\Models\Message;
+use Microsoft\Graph\Beta\Generated\Models\MessageCollectionResponse;
+use Microsoft\Graph\Beta\Generated\Models\Recipient;
+use Microsoft\Graph\Beta\Generated\Users\Count\CountRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Beta\Generated\Users\Item\Messages\MessagesRequestBuilderGetQueryParameters;
+use Microsoft\Graph\Beta\Generated\Users\Item\Messages\MessagesRequestBuilderGetRequestConfiguration;
 use Microsoft\Kiota\Abstractions\ResponseHandler;
 use Microsoft\Kiota\Authentication\Oauth\AuthorizationCodeContext;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
-use Microsoft\Kiota\Authentication\Oauth\OnBehalfOfContext;
 use Microsoft\Kiota\Authentication\PhpLeagueAuthenticationProvider;
 use Psr\Http\Message\ResponseInterface;
 
@@ -83,7 +80,7 @@ try {
     $sampleMessageId = $messages->getValue()[0]->getId();
     $message = $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
     
-    // POST
+    // // POST
     $body = new ItemBody();
     $body->setContent("They were awesome");
     $body->setContentType(new BodyType(BodyType::TEXT));
@@ -112,11 +109,7 @@ try {
 
     $inputStream = Utils::streamFor(fopen('demo-upload.txt', 'r'));
     $uploadItem = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->content()->put($inputStream)->wait();
-
-    // DOWNLOAD FILE
-    $fileContents = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->content()->get()->wait();
-    $fileContents = $fileContents->getContents();
-    
+        
     // DISCRIMINATOR MAPPING
     $appCreator = $graphServiceClient->applicationsById('3e90e1bf-6e1d-4f4e-a582-1c399aae626b')->owners()->get()->wait();
   
@@ -125,16 +118,13 @@ try {
     $requestConfig->headers = ['ConsistencyLevel' => 'eventual'];
     $numUsers = $graphServiceClient->users()->count()->get($requestConfig)->wait();
 
+    // DOWNLOAD FILE
+    $fileContents = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->content()->get()->wait();
+    $fileContents = $fileContents->getContents();
+
     // DELETE
     $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->delete();
     $message = $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
-    
-    // UPLOAD SESSION
-    $itemProperties = new DriveItemUploadableProperties();
-    $itemProperties->setAdditionalData(['@microsoft.graph.conflictBehavior' => 'replace']);
-    $body = new CreateUploadSessionPostRequestBody();
-    $body->setItem($itemProperties);
-    $session = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->createUploadSession()->post($body)->wait();
 
 } catch(Exception $ex) {
     print_r($ex);

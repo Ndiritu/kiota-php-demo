@@ -5,3 +5,5 @@ coverage/
 .idea/
 .phpunit.result.cache
 .phpdoc/
+debug.log
+.vscode/
