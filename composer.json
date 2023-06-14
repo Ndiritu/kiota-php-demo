@@ -10,8 +10,8 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "microsoft/microsoft-graph": "^2.0.0-RC5",
-        "microsoft/microsoft-graph-core": "@RC"
+        "microsoft/microsoft-graph-beta": "dev-dev",
+        "microsoft/microsoft-graph-core": "@dev"
 
     },
     "require-dev": {

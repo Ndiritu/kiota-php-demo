@@ -6,7 +6,16 @@ use Exception;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Utils;
 use Http\Promise\Promise;
+use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
+use Microsoft\Graph\Core\GraphClientFactory;
+use Microsoft\Graph\Core\GraphConstants;
+use Microsoft\Graph\Core\Middleware\Option\GraphTelemetryOption;
+use Microsoft\Graph\Generated\Admin\ServiceAnnouncement\Messages\MessagesRequestBuilderGetQueryParameters as MessagesMessagesRequestBuilderGetQueryParameters;
 use Microsoft\Graph\Generated\Drives\Item\Items\Item\CreateUploadSession\CreateUploadSessionPostRequestBody;
+use Microsoft\Graph\Generated\Groups\Item\Drive\DriveRequestBuilderGetQueryParameters;
+use Microsoft\Graph\Generated\Groups\Item\Drive\DriveRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Me\MeRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Me\Messages\MessagesRequestBuilderGetRequestConfiguration;
 use Microsoft\Graph\Generated\Models\BodyType;
 use Microsoft\Graph\Generated\Models\DriveItemUploadableProperties;
 use Microsoft\Graph\Generated\Models\EmailAddress;
@@ -18,14 +27,23 @@ use Microsoft\Graph\Generated\Models\Message;
 use Microsoft\Graph\Generated\Models\MessageCollectionResponse;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Users\Count\CountRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Users\Item\Drives\Item\Root\CreateUploadSession\CreateUploadSessionPostRequestBody as CreateUploadSessionCreateUploadSessionPostRequestBody;
 use Microsoft\Graph\Generated\Users\Item\Messages\MessagesRequestBuilderGetQueryParameters;
-use Microsoft\Graph\Generated\Users\Item\Messages\MessagesRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Users\Item\Messages\MessagesRequestBuilderGetRequestConfiguration as MessagesMessagesRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Users\Item\Teamwork\InstalledApps\InstalledAppsRequestBuilderGetQueryParameters;
+use Microsoft\Graph\Generated\Users\Item\Teamwork\InstalledApps\InstalledAppsRequestBuilderGetRequestConfiguration;
+use Microsoft\Graph\Generated\Users\UsersRequestBuilderGetQueryParameters;
+use Microsoft\Graph\Generated\Users\UsersRequestBuilderGetRequestConfiguration;
+use Microsoft\Kiota\Abstractions\NativeResponseHandler;
+use Microsoft\Kiota\Abstractions\QueryParameter;
 use Microsoft\Kiota\Abstractions\ResponseHandler;
 use Microsoft\Kiota\Authentication\Oauth\AuthorizationCodeContext;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Kiota\Authentication\Oauth\OnBehalfOfContext;
 use Microsoft\Kiota\Authentication\PhpLeagueAuthenticationProvider;
+use Microsoft\Kiota\Http\Middleware\Options\RetryOption;
 use Psr\Http\Message\ResponseInterface;
+
 
 set_include_path(__DIR__);
 
@@ -36,52 +54,47 @@ define('CLIENT_ID', getenv('kiota_client_id'));
 define('CLIENT_SECRET', getenv('kiota_client_secret'));
 const USER_ID = 'pgichuhi@sk7xg.onmicrosoft.com';
 
+
 $tokenRequestContext = new ClientCredentialContext(
     TENANT_ID,
     CLIENT_ID,
     CLIENT_SECRET
 );
 
-// $tokenRequestContext = new AuthorizationCodeContext(
-//     TENANT_ID,
-        // CLIENT_ID,
-        // CLIENT_SECRET
-//     'authCode',
-//     'http://localhost:8080'
-// );
-
-$authProvider = new PhpLeagueAuthenticationProvider($tokenRequestContext, ['https://graph.microsoft.com/.default']);
+$authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
 $requestAdapter = new GraphRequestAdapter($authProvider);
 $graphServiceClient = new GraphServiceClient($requestAdapter);
 
 try {
+
     // GET collection of messages
-    $messages = $graphServiceClient->usersById(USER_ID)->messages()->get()->wait();
+    // $user = $graphServiceClient->users()->byUserId(USER_ID)->get()->wait();
+    // $messages = $graphServiceClient->users()->byUserId(USER_ID)->messages()->get()->wait();
+
+
+    // $groupId = '0058f9a0-005a-4e20-b875-4878c99e4f44';
+    // $driveConfig = new DriveRequestBuilderGetRequestConfiguration();
+    // $driveConfig->queryParameters = new DriveRequestBuilderGetQueryParameters();
+    // $driveConfig->queryParameters->expand = ['root'];
+
+    // $defaultDrive = $graphServiceClient->groups()->byGroupId($groupId)->drive()->get($driveConfig)->wait();
+    // $groupDriveRoot = $defaultDrive->getRoot();
+    // $children = $graphServiceClient->drives()->byDriveId($defaultDrive->getId())->items()->byDriveItemId($groupDriveRoot->getId())->children()->get()->wait();
+
 
     // WITH QUERY PARAMETERS & HEADERS
-    $requestConfig = new MessagesRequestBuilderGetRequestConfiguration();
+    $requestConfig = new MessagesMessagesRequestBuilderGetRequestConfiguration();
     $requestConfig->queryParameters = new MessagesRequestBuilderGetQueryParameters();
     $requestConfig->queryParameters->select = ['subject'];
     $requestConfig->queryParameters->top = 2;
     $requestConfig->headers = ['Prefer' => 'outlook.body-content-type=text']; 
 
-    $nextLink = '';
-    $numMessages = 0;
+    $messages = $graphServiceClient->users()->byUserId(USER_ID)->messages()->get($requestConfig)->wait();
 
-    do {
-        $requestInfo = $graphServiceClient->usersById(USER_ID)->messages()->createGetRequestInformation($requestConfig);
-        if ($nextLink) {
-            $requestInfo->setUri($nextLink);
-        }
-        $additionalMessages = $requestAdapter->sendAsync($requestInfo, [MessageCollectionResponse::class, 'createFromDiscriminatorValue'])->wait();
-        $numMessages += sizeof($additionalMessages->getValue());
-        $nextLink = $additionalMessages->getOdatanextLink();
-    } while ($nextLink);
-   
 
     // GET item
     $sampleMessageId = $messages->getValue()[0]->getId();
-    $message = $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
+    $message = $graphServiceClient->users()->byUserId(USER_ID)->messages()->byMessageId($sampleMessageId)->get()->wait();
     
     // POST
     $body = new ItemBody();
@@ -99,26 +112,26 @@ try {
     $message->setBody($body);
     $message->setToRecipients([$recipient]);
 
-    $response = $graphServiceClient->usersById(USER_ID)->messages()->post($message)->wait();
+    $response = $graphServiceClient->users()->byUserId(USER_ID)->messages()->post($message)->wait();
 
     // PATCH
     $updatedMsg = new Message();
     $updatedMsg->setSubject("Updated Subject!");
-    $updatedMsg = $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->patch($updatedMsg)->wait();
+    $updatedMsg = $graphServiceClient->users()->byUserId(USER_ID)->messages()->byMessageId($sampleMessageId)->patch($updatedMsg)->wait();
 
     // PUT
     $rootDriveId = "b!snvSw7NE8EeDp1CLO07dj3632uZ9FZhDi6IfbdhpPZBtcVvavuhNRYPmoTYXKS5e";
     $driveItemId = 'root:/files/kiota-demo.txt:';
 
     $inputStream = Utils::streamFor(fopen('demo-upload.txt', 'r'));
-    $uploadItem = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->content()->put($inputStream)->wait();
+    $uploadItem = $graphServiceClient->drives()->byDriveId($rootDriveId)->items()->byDriveItemId($driveItemId)->content()->put($inputStream)->wait();
 
     // DOWNLOAD FILE
-    $fileContents = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->content()->get()->wait();
+    $fileContents = $graphServiceClient->drives()->byDriveId($rootDriveId)->items()->byDriveItemId($driveItemId)->content()->get()->wait();
     $fileContents = $fileContents->getContents();
     
     // DISCRIMINATOR MAPPING
-    $appCreator = $graphServiceClient->applicationsById('3e90e1bf-6e1d-4f4e-a582-1c399aae626b')->owners()->get()->wait();
+    $appCreator = $graphServiceClient->applications()->byApplicationId('3e90e1bf-6e1d-4f4e-a582-1c399aae626b')->owners()->get()->wait();
   
     // PLAIN TEXT DESERIALIZATION
     $requestConfig = new CountRequestBuilderGetRequestConfiguration();
@@ -126,15 +139,21 @@ try {
     $numUsers = $graphServiceClient->users()->count()->get($requestConfig)->wait();
 
     // DELETE
-    $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->delete();
-    $message = $graphServiceClient->usersById(USER_ID)->messagesById($sampleMessageId)->get()->wait();
+    $graphServiceClient->users()->byUserId(USER_ID)->messages()->byMessageId($sampleMessageId)->delete();
+    $message = $graphServiceClient->users()->byUserId(USER_ID)->messages()->byMessageId($sampleMessageId)->get()->wait();
     
     // UPLOAD SESSION
     $itemProperties = new DriveItemUploadableProperties();
     $itemProperties->setAdditionalData(['@microsoft.graph.conflictBehavior' => 'replace']);
     $body = new CreateUploadSessionPostRequestBody();
     $body->setItem($itemProperties);
-    $session = $graphServiceClient->drivesById($rootDriveId)->itemsById($driveItemId)->createUploadSession()->post($body)->wait();
+
+    $body = new CreateUploadSessionPostRequestBody();
+    $body->setItem($itemProperties);
+    $session = $graphServiceClient->drives()->byDriveId($rootDriveId)->items()->byDriveItemId($driveItemId)->createUploadSession()->post($body)->wait();
+
+    $var = "last line";
+
 
 } catch(Exception $ex) {
     print_r($ex);
