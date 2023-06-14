@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "microsoft/microsoft-graph-beta": "dev-dev",
+        "microsoft/microsoft-graph": "dev-feat/kiota-preview",
         "microsoft/microsoft-graph-core": "@dev"
 
     },

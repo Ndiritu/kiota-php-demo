@@ -32,9 +32,7 @@ $tokenRequestContext = new ClientCredentialContext(
     CLIENT_SECRET
 );
 $tokenRequestContext->setCAEEnabled(true);
-$authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
-$requestAdapter = new GraphRequestAdapter($authProvider);
-$graphServiceClient = new GraphServiceClient($requestAdapter);
+$graphServiceClient = new GraphServiceClient($tokenRequestContext);
 
 
 try {
