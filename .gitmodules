@@ -1,4 +1,0 @@
-[submodule "msgraph-sdk-php"]
-	path = msgraph-sdk-php
-	url = https://github.com/microsoft/msgraph-sdk-php
-	branch = feat/kiota-preview
