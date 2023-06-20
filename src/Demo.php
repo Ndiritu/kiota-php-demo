@@ -60,10 +60,7 @@ $tokenRequestContext = new ClientCredentialContext(
     CLIENT_ID,
     CLIENT_SECRET
 );
-
-$authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
-$requestAdapter = new GraphRequestAdapter($authProvider);
-$graphServiceClient = new GraphServiceClient($requestAdapter);
+$graphServiceClient = new GraphServiceClient($tokenRequestContext);
 
 try {
 
