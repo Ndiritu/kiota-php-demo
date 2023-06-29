@@ -14,6 +14,7 @@ use Microsoft\Graph\GraphRequestAdapter;
 use Microsoft\Graph\GraphServiceClient;
 use Microsoft\Kiota\Abstractions\ApiException;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
+use Microsoft\Graph\Generated\Models\MessageCollectionResponse;
 
 
 const USER_ID = 'pgichuhi@sk7xg.onmicrosoft.com';
@@ -47,12 +48,18 @@ try {
     $requestConfig->queryParameters->top = 2;
     $requestConfig->headers = ['Prefer' => 'outlook.body-content-type=text']; 
 
+    /** @var MessageCollectionResponse $messages */
     $messages = $graphServiceClient->users()->byUserId(USER_ID)->messages()->get($requestConfig)->wait();
+    $message = $messages->getValue()[0];
+    $additionalData = $message->getAdditionalData();
+    $stuff = $message->getCategories();
 
     // POST
     $body = new ItemBody();
     $body->setContent("They were awesome");
     $body->setContentType(new BodyType(BodyType::TEXT));
+
+    $content = $body->getContent();
 
     $email = new EmailAddress();
     $email->setAddress("Test@contoso.onmicrosoft.com");

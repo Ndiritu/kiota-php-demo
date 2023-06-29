@@ -10,13 +10,8 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "microsoft/microsoft-graph": "dev-kiota/v1.0/pipelinebuild/117921",
-        "microsoft/microsoft-graph-core": "@dev",
-        "microsoft/kiota-authentication-phpleague": "@dev",
-        "microsoft/kiota-http-guzzle": "@dev",
-        "microsoft/kiota-serialization-json": "@dev",
-        "microsoft/kiota-serialization-text": "@dev",
-        "microsoft/kiota-abstractions": "@dev"
+        "microsoft/microsoft-graph": "dev-kiota/v1.0/pipelinebuild/model-updates/118964",
+        "microsoft/microsoft-graph-core": "@dev"
 
     },
     "require-dev": {
