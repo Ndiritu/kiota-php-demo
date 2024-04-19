@@ -5,6 +5,7 @@ namespace Kiota\Demo;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Utils;
 use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
+use Microsoft\Graph\Core\NationalCloud;
 use Microsoft\Graph\Core\Tasks\LargeFileUploadTask;
 use Microsoft\Graph\Core\Tasks\PageIterator;
 use Microsoft\Graph\Generated\Models\AttachmentItem;
@@ -20,6 +21,7 @@ use Microsoft\Kiota\Abstractions\ApiException;
 use Microsoft\Graph\Generated\Models\UploadSession;
 use Microsoft\Graph\Generated\Models\User;
 use Microsoft\Graph\Generated\Models\UserCollectionResponse;
+use DateTimeInterface;
 
 set_include_path(__DIR__);
 
@@ -37,28 +39,44 @@ $tokenRequestContext = new ClientCredentialContext(
     CLIENT_SECRET
 );
 
-$authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
-$requestAdapter = new GraphRequestAdapter($authProvider, new Client(['debug' => true]));
-$graphServiceClient = new GraphServiceClient($requestAdapter);
+// $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
+// $requestAdapter = new GraphRequestAdapter($authProvider, new Client(['debug' => true]));
+// $graphServiceClient = new GraphServiceClient($tokenRequestContext, [], NationalCloud::GLOBAL, $requestAdapter);
 
-$users = $graphServiceClient->users()->get()->wait();
-
-$pageIterator = new PageIterator($users, $requestAdapter, [UserCollectionResponse::class]);
+$graphServiceClient = new GraphServiceClient($tokenRequestContext);
 
 try {
-    $counter = 1;
-    $pageIterator->iterate(function (User $user) use (&$counter) {
-        echo "Counter: $counter - name: {$user->getDisplayName()}\n";
-        $counter ++;
-        return ($counter % 10 != 0);
-    });
-    echo "\n\n PAUSED ITERATION!\n\n";
-    $pageIterator->iterate(function (User $user) use (&$counter) {
-        echo "Counter: $counter - name: {$user->getDisplayName()}\n";
-        $counter ++;
-        return true;
-    });
-    echo "\n\nTOTAL COUNT OF USERS: $counter\n\n";
+$messages = $graphServiceClient->users()->byUserId(USER_ID)->messages()->get()->wait();
+
+$pageIterator = new PageIterator($messages, $graphServiceClient->getRequestAdapter());
+
+$counter = 0;
+$callback = function (Message $message) use (&$counter) {
+    echo "Subject: {$message->getSubject()}, Received at: {$message->getReceivedDateTime()->format(DateTimeInterface::RFC2822)}\n";
+    $counter ++;
+    return ($counter % 5 != 0);
+};
+
+while ($pageIterator->hasNext()) {
+    // iteration pauses then resumes after every 5 messages
+    $pageIterator->iterate($callback);
+
+    echo "\nPaused iteration...Total messages: {$counter}\n\n";
+}
+
+    // $counter = 1;
+    // $pageIterator->iterate(function (User $user) use (&$counter) {
+    //     echo "Counter: $counter - name: {$user->getDisplayName()}\n";
+    //     $counter ++;
+    //     return ($counter % 10 != 0);
+    // });
+    // echo "\n\n PAUSED ITERATION!\n\n";
+    // $pageIterator->iterate(function (User $user) use (&$counter) {
+    //     echo "Counter: $counter - name: {$user->getDisplayName()}\n";
+    //     $counter ++;
+    //     return true;
+    // });
+    // echo "\n\nTOTAL COUNT OF USERS: $counter\n\n";
 
 } catch (ODataError $ex) {
     print_r($ex);

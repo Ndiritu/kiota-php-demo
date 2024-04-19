@@ -10,9 +10,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "microsoft/microsoft-graph": "dev-kiota/v1.0/pipelinebuild/model-updates/118964",
-        "microsoft/microsoft-graph-core": "@dev"
-
+        "microsoft/microsoft-graph": "^2.3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.16",
@@ -21,6 +19,11 @@
     "autoload": {
         "psr-4": {
             "Kiota\\Demo\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": false
         }
     }
 }
